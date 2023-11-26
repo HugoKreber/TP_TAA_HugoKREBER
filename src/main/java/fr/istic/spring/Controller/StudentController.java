@@ -21,11 +21,11 @@ public class StudentController {
     @Autowired
     private StudentDao studentDao;
     /**
-     * GET /create  --> Create a new user and save it in the database.
+     * GET /create  --> Create a new student and save it in the database.
      */
     @PostMapping("/create")
     @ResponseBody
-    public String createTeacher(@RequestBody StudentDTO dto) {
+    public String createStudent(@RequestBody StudentDTO dto) {
         try {
             Student student = new Student();
             student.setName(dto.getName());
@@ -33,7 +33,7 @@ public class StudentController {
             studentDao.save(student);
         }
         catch (Exception ex) {
-            return "Error creating the user: " + ex.toString();
+            return "Error creating the student: " + ex.toString();
         }
         return "Student succesfully created" ;
     }

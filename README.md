@@ -26,6 +26,9 @@ Il permet de mapper les DTO notamment pour les id_student et les id_teacher d'un
 
 L'api rest est définie et implémentée pour la partie Spring, elle contient au moins un endpoint pour chaque entité, seul la classe teacher possède tous les types d'endpoints CRUD.
 
+## OpenAPI / Swagger
+
+OpenAPI est bien présente et permet de générer la doc à l'adresse suivante : http://localhost:8080/swagger-ui/index.html
 ## AOP
 
 Un système de Log est installé pour Spring, Il n'est implémenté qu'un seul message pour tout les endpoint qui affiche le message "Log : {Retour de la requête}".

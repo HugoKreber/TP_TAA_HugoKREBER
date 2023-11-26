@@ -43,7 +43,6 @@ public class AppointmentController {
                 appointment.setEnd(dto.getEnd());
                 appointment.setTitle(dto.getTitle());
 
-                // Enregistrez le rendez-vous dans la base de données en utilisant votre AppointementDao
                 AppDao.save(appointment);
             }
         }

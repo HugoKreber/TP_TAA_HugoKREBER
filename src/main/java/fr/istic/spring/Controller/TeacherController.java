@@ -6,6 +6,8 @@ import fr.istic.spring.Dao.TeacherDao;
 import fr.istic.spring.Dao.UserDao;
 import fr.istic.spring.Domain.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +23,7 @@ public class TeacherController {
     private TeacherDao teacherDao;
 
     /**
-     * POST /create  --> Create a new user and save it in the database.
+     * POST /create  --> Create a new teacher and save it in the database.
      */
     @PostMapping("/create")
     @ResponseBody
@@ -39,11 +41,11 @@ public class TeacherController {
     }
 
     /**
-     * DELETE /delete  --> Delete the user having the passed id.
+     * DELETE /delete  --> Delete the teacher having the passed id.
      */
     @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public String delete(@PathVariable("id") long id) {
+    public String deleteTeacher(@PathVariable("id") long id) {
         try {
             userDao.deleteById(id);
         }
@@ -56,12 +58,12 @@ public class TeacherController {
 
 
     /**
-     * PUT /update  --> Update the email and the name for the user in the
+     * PUT /update  --> Update the password and the name for the teacher in the
      * database having the passed id.
      */
     @PutMapping("/update/{id}")
     @ResponseBody
-    public String updateUser(@RequestBody TeacherDTO dto,@PathVariable("id") long id) {
+    public String updateTeacher(@RequestBody TeacherDTO dto,@PathVariable("id") long id) {
         try {
             Teacher teacher = teacherDao.findById(id).get();
             teacher.setPassword(dto.getName());
@@ -71,7 +73,23 @@ public class TeacherController {
         catch (Exception ex) {
             return "Error updating the user: " + ex.toString();
         }
-        return "User succesfully updated!";
+        return "Teacher succesfully updated!";
+    }
+
+
+    /**
+     * GET /get/{id}  --> Get the teacher with the specified id.
+     */
+    @GetMapping("/get/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getTeacher(@PathVariable("id") long id) {
+        try {
+            Teacher teacher = teacherDao.findById(id).get();
+            return ResponseEntity.ok(teacher);
+        }
+        catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error getting the teacher: " + ex.toString());
+        }
     }
 
 
